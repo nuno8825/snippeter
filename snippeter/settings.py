@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     "accoounts.apps.AccoountsConfig",
 ]
 
-LOGIN_URL = "/accoounts/login/"
+LOGIN_URL = "/accoounts/login/"  # login_requeireに弾かれた時のURL
 LOGIN_REDIRECT_URL = "/"  # login操作時のリダイレクト先を設定
 LOGOUT_REDIRECT_URL = "/"
 

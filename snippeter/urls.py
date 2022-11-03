@@ -22,5 +22,5 @@ urlpatterns = [
     path('', top, name='top'),
     path("admin/", admin.site.urls),
     path("snippets/", include("snippets.urls")),  # snippets/urls.pyの読み込み
-    path("accoouns/", include("accoounts.urls")),  # accoounts/urls.pyの読み込み
+    path("accoounts/", include("accoounts.urls")),  # accoounts/urls.pyの読み込み
 ]
