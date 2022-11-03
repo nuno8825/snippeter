@@ -5,7 +5,7 @@ main {
 .welcome {
     padding: 3rem 0;
     margin-bottom: 2rem;
-    background-color: rgb(226, 88, 88);
+    background-color: rgb(149, 204, 234);
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -19,5 +19,5 @@ main {
 .source-code>.highlight {
     padding: 1rem;
     margin-bottom: 1rem;
-    background-color: rgb(175, 173, 177);
+    background-color: rgb(211, 207, 216);
 }
