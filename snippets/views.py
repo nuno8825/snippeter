@@ -6,9 +6,11 @@ from snippets.forms import SnippetForm
 from snippets.models import Snippet
 
 
+@login_required
 def top(request):
     snippets = Snippet.objects.all()
-    context = {"snippets": snippets}
+    user = request.user
+    context = {"snippets": snippets, "dare": user}
     return render(request, "snippets/top.html", context)
 
 
@@ -51,6 +53,7 @@ def snippet_delete(request, snippet_id):  # 投稿の削除機能
     return render(request, 'snippets/snippet_delete.html', {'snippet': snippet})
 
 
+@login_required
 def snippet_detail(request, snippet_id):
     snippet = get_object_or_404(Snippet, pk=snippet_id)
     return render(request, 'snippets/snippet_detail.html',

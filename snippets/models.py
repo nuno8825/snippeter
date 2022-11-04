@@ -14,3 +14,13 @@ class Snippet(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model):
+    TEXT = models.TextField('コメント', blank=True)
+    commented_to = models.ForeignKey(
+        Snippet, verbose_name="投稿先", on_delete=models.CASCADE)
+    commented_by = models.ForeignKey(settings.AUTH_USER_MODEL,
+                                     verbose_name="コメンテーター",
+                                     on_delete=models.CASCADE)
+    commented_at = models.DateTimeField("投稿日", auto_now_add=True)
