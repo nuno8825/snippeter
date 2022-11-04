@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load pygmentize %}
+{% load django_bootstrap5 %}
+
+{% block extraheader %}
+<style>
+    {
+        % pygments_css %
+    }
+</style>
+{% endblock %}
+
+{% block main %}
+<h2>{{ snippet.title }}by {{ snippet.created_by.username }}</h2>
+
+<div class="snippet-date">
+    投稿日: {{ snippet.created_at|date:"DATETIME_FORMAT" }}
+</div>
+
+<div class="source-code">
+    {{ snippet.code|pygmentize:"python3" }}
+</div>
+
+<p>{{ snippet.description }}</p>
+
+<h2>この投稿を本当に削除してしまいますか？</h2>
+<!-- actionを指定しないと自分自身のURLにリクエストを出すらしい-->
+<form method="post" action="/snippets/{{snippet.id}}/delete/">
+    {% csrf_token %}
+
+    {% bootstrap_button button_type="submit" content="削除" %}
+</form>
+
+{% endblock %}

@@ -42,6 +42,15 @@ def snippet_edit(request, snippet_id):
     return render(request, 'snippets/snippet_edit.html', {'form': form})
 
 
+@login_required
+def snippet_delete(request, snippet_id):  # 投稿の削除機能
+    snippet = get_object_or_404(Snippet, pk=snippet_id)
+    if request.method == "POST":
+        snippet.delete()
+        return redirect("top")
+    return render(request, 'snippets/snippet_delete.html', {'snippet': snippet})
+
+
 def snippet_detail(request, snippet_id):
     snippet = get_object_or_404(Snippet, pk=snippet_id)
     return render(request, 'snippets/snippet_detail.html',
