@@ -11,8 +11,8 @@ SNIPPETERはコードスニペットを保管・共有するためのWebアプ�
 - 投稿したコードスニペットの削除
 - コードスニペットへのコメント
 
-![ホーム画面](documents/home.jpg)
-![コメント画面](documents/comment.jpg)
+![ホーム画面](documents/home.png)
+![コメント画面](documents/comment.png)
 
 ## 環境構築
 
