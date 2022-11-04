@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load pygmentize %}
+{% load django_bootstrap5 %}
 
 {% block extraheader %}
 <style>
@@ -28,4 +29,16 @@
 </div>
 
 <p>{{ snippet.description }}</p>
+<div>
+    <h2>コメント一覧</h2>
+    {% for comment in comments %}
+    {{comment.TEXT}} by {{comment.commented_by.username}}
+    <p>投稿日　{{comment.commented_at}}</p>
+    {% endfor %}
+</div>
+<form method="post" action="/snippets/{{snippet.id}}/comments/new/">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% bootstrap_button button_type="submit" content="コメントする" %}
+</form>
 {% endblock %}

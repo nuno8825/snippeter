@@ -3,7 +3,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 
 from snippets.forms import SnippetForm
+from snippets.forms import CommentForm
 from snippets.models import Snippet
+from snippets.models import Comment
 
 
 @login_required
@@ -56,5 +58,23 @@ def snippet_delete(request, snippet_id):  # 投稿の削除機能
 @login_required
 def snippet_detail(request, snippet_id):
     snippet = get_object_or_404(Snippet, pk=snippet_id)
+    comments = Comment.objects.filter(commented_to=snippet_id)
+    commentform = CommentForm()
     return render(request, 'snippets/snippet_detail.html',
-                  {'snippet': snippet})
+                  {'snippet': snippet, "form": commentform, "comments": comments})
+
+
+@login_required
+def comment_new(request, snippet_id):
+    snippet = get_object_or_404(Snippet, pk=snippet_id)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.commented_by = request.user
+            comment.commented_to = snippet
+            comment.save()
+            return redirect(snippet_detail, snippet_id=snippet_id)
+
+    commentform = CommentForm()
+    return render(request, "snippets/snippet_detail.html", {'snippet': snippet, "form": commentform})
