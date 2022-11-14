@@ -32,8 +32,12 @@
 <div>
     <h2>コメント一覧</h2>
     {% for comment in comments %}
+    {% if user.is_authenticated and snippet.created_by_id == user.id %}
+    <a class="btn btn-primary" href="{% url 'snippet_delete' snippet.id %}">削除</a>
+    {% endif %}
     {{comment.TEXT}} by {{comment.commented_by.username}}
     <p>投稿日　{{comment.commented_at}}</p>
+
     {% endfor %}
 </div>
 <form method="post" action="/snippets/{{snippet.id}}/comments/new/">
