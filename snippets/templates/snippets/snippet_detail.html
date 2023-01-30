@@ -29,17 +29,21 @@
 </div>
 
 <p>{{ snippet.description }}</p>
+
 <div>
     <h2>コメント一覧</h2>
     {% for comment in comments %}
-    {% if user.is_authenticated and snippet.created_by_id == user.id %}
-    <a class="btn btn-primary" href="{% url 'snippet_delete' snippet.id %}">削除</a>
-    {% endif %}
     {{comment.TEXT}} by {{comment.commented_by.username}}
+    {% if user.is_authenticated and snippet.created_by_id == user.id %}
+    <a class="btn btn-primary" href="{% url 'comment_delete' comment.id %}">削除</a>
+    {% endif %}
+
     <p>投稿日　{{comment.commented_at}}</p>
 
     {% endfor %}
 </div>
+
+%　スニペットの投稿者はコメントを削除することができます
 <form method="post" action="/snippets/{{snippet.id}}/comments/new/">
     {% csrf_token %}
     {% bootstrap_form form %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load pygmentize %}
+{% load django_bootstrap5 %}
+
+{% block extraheader %}
+<style>
+    {
+        % pygments_css %
+    }
+</style>
+{% endblock %}
+
+{% block main %}
+
+
+
+<p>{{ comment.TEXT }}</p>
+
+
+<h2>このコメントを本当に削除してしまいますか？</h2>
+<!-- actionを指定しないと自分自身のURLにリクエストを出すらしい-->
+<form method="post" action="/snippets/comments/{{comment.id}}/delete/">
+    {% csrf_token %}
+
+    {% bootstrap_button button_type="submit" content="削除" %}
+</form>
+
+{% endblock %}
